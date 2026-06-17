@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-windows:
-    runs-on: windows-latest
+    runs-on: windows-2022
     strategy:
       matrix:
         node-version: [22]
@@ -19,16 +19,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Setup MSVC
-        uses: ilammy/msvc-dev-cmd@v1
-
-      - name: Install windows-build-tools
-        run: |
-          npm config set msvs_version 2022
-          npm install -g node-gyp
-
       - name: Install and build native addon
         run: |
+          npm config set msvs_version 2022
           npm install --build-from-source
           dir node_modules\@pokusew\pcsclite\build\Release\
 
