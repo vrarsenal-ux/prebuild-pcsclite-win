@@ -1,0 +1,33 @@
+name: Build pcsclite for Windows
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        node-version: [22]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install and build native addon
+        run: |
+          npm install
+          echo "Build complete"
+          dir node_modules\@pokusew\pcsclite\build\Release\
+
+      - name: Upload pcsclite.node
+        uses: actions/upload-artifact@v4
+        with:
+          name: pcsclite-win-x64-node${{ matrix.node-version }}
+          path: node_modules/@pokusew/pcsclite/build/Release/pcsclite.node
+          retention-days: 90

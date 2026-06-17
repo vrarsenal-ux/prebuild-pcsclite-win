@@ -1,0 +1,8 @@
+{
+  "name": "prebuild-pcsclite-win",
+  "version": "1.0.0",
+  "description": "Pre-build @pokusew/pcsclite native addon for Windows + Node 22",
+  "dependencies": {
+    "@pokusew/pcsclite": "0.6.0"
+  }
+}
